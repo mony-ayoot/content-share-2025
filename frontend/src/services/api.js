@@ -1,17 +1,15 @@
 import axios from 'axios';
+import config from '../config';
 
-const API_URL = 'http://localhost:8000/api';
-
+// Create an axios instance with the base URL from config
 const api = axios.create({
-  baseURL: API_URL,
+  baseURL: config.API_URL,
   headers: {
     'Content-Type': 'application/json',
-    'Accept': 'application/json',
   },
-  withCredentials: true,
 });
 
-// Add request interceptor to include token
+// Add a request interceptor to include auth token in requests
 api.interceptors.request.use(
   (config) => {
     const token = localStorage.getItem('token');
@@ -25,20 +23,19 @@ api.interceptors.request.use(
   }
 );
 
-// Add response interceptor for better error handling
+// Add a response interceptor to handle errors globally
 api.interceptors.response.use(
-  (response) => response,
+  (response) => {
+    return response;
+  },
   (error) => {
-    if (error.response?.status === 401 || error.response?.status === 403) {
-      // Instead of redirecting, we'll throw an error that components can handle
+    // Handle 401 Unauthorized errors (token expiry)
+    if (error.response && error.response.status === 401) {
+      // Clear invalid token
       localStorage.removeItem('token');
-      throw new Error('Authentication required. Please log in again.');
+      // Redirect to login page
+      window.location.href = '/login';
     }
-    console.error('API Error:', {
-      status: error.response?.status,
-      data: error.response?.data,
-      config: error.config,
-    });
     return Promise.reject(error);
   }
 );

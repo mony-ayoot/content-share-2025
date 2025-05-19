@@ -11,5 +11,14 @@ export default defineConfig({
         changeOrigin: true
       }
     }
+  },
+  build: {
+    outDir: 'build',
+    sourcemap: false,
+    minify: true,
+  },
+  define: {
+    // Allow environment variables to be accessible in the app
+    'process.env': {}
   }
 })
