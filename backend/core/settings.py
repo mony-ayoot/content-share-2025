@@ -150,7 +150,9 @@ AUTH_USER_MODEL = 'aits.User'
 CORS_ORIGIN_ALLOW_ALL = False
 CORS_ALLOW_CREDENTIALS = True
 CORS_ORIGIN_WHITELIST = os.environ.get('CORS_ORIGIN_WHITELIST', 
-    'http://localhost:5173,http://127.0.0.1:5173').split(',')
+    'http://localhost:5173,http://127.0.0.1:5173,https://group-d-2025-j76wf1j7b-priez211s-projects.vercel.app').split(',')
+
+ALLOWED_HOSTS = ['*']
 
 if os.environ.get('FRONTEND_URL'):
     CORS_ORIGIN_WHITELIST.append(os.environ.get('FRONTEND_URL'))
@@ -182,7 +184,7 @@ CORS_EXPOSE_HEADERS = [
 ]
 
 CSRF_TRUSTED_ORIGINS = os.environ.get('CSRF_TRUSTED_ORIGINS',
-    "http://localhost:5173,http://127.0.0.1:5173").split(',')
+    "http://localhost:5173,http://127.0.0.1:5173,https://group-d-2025-j76wf1j7b-priez211s-projects.vercel.app").split(',')
 
 if os.environ.get('FRONTEND_URL'):
     CSRF_TRUSTED_ORIGINS.append(os.environ.get('FRONTEND_URL'))
