@@ -87,7 +87,7 @@ DATABASES = {
     }
 }
 
-# If DATABASE_URL is set (on Railway), use that instead
+
 DATABASE_URL = os.environ.get('DATABASE_URL')
 if DATABASE_URL:
     DATABASES['default'] = dj_database_url.config(
@@ -146,11 +146,13 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 AUTH_USER_MODEL = 'aits.User'
 
-# CORS settings
+
 CORS_ORIGIN_ALLOW_ALL = False
+
 CORS_ALLOW_CREDENTIALS = True
+
 CORS_ORIGIN_WHITELIST = os.environ.get('CORS_ORIGIN_WHITELIST', 
-    'http://localhost:5173,http://127.0.0.1:5173,https://group-d-2025-j76wf1j7b-priez211s-projects.vercel.app').split(',')
+                                        'http://localhost:5173,http://127.0.0.1:5173,https://group-d-2025-j76wf1j7b-priez211s-projects.vercel.app').split(',')
 
 ALLOWED_HOSTS = ['*']
 
@@ -166,25 +168,9 @@ CORS_ALLOW_METHODS = [
     'PUT',
 ]
 
-CORS_ALLOW_HEADERS = [
-    'accept',
-    'accept-encoding',
-    'authorization',
-    'content-type',
-    'dnt',
-    'origin',
-    'user-agent',
-    'x-csrftoken',
-    'x-requested-with',
-]
-
-CORS_EXPOSE_HEADERS = [
-    'content-type',
-    'authorization',
-]
 
 CSRF_TRUSTED_ORIGINS = os.environ.get('CSRF_TRUSTED_ORIGINS',
-    "http://localhost:5173,http://127.0.0.1:5173,https://group-d-2025-j76wf1j7b-priez211s-projects.vercel.app").split(',')
+            "http://localhost:5173,http://127.0.0.1:5173,https://group-d-2025-j76wf1j7b-priez211s-projects.vercel.app").split(',')
 
 if os.environ.get('FRONTEND_URL'):
     CSRF_TRUSTED_ORIGINS.append(os.environ.get('FRONTEND_URL'))
@@ -207,9 +193,9 @@ REST_FRAMEWORK = {
 }
 
 # JWT settings
-JWT_SECRET_KEY = SECRET_KEY  # Using Django's secret key for JWT
+JWT_SECRET_KEY = SECRET_KEY 
 JWT_ALGORITHM = 'HS256'
-JWT_ACCESS_TOKEN_LIFETIME = 24 * 60 * 60  # 24 hours in seconds
+JWT_ACCESS_TOKEN_LIFETIME = 24 * 60 * 60
 
-# Ensure APPEND_SLASH is False to prevent Django from redirecting URLs
+# This is to prevent Django from redirecting URLs
 APPEND_SLASH = False
